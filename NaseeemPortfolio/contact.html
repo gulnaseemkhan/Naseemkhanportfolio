@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio — Contact</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── CONTACT LAYOUT ── */
+    .contact-section {
+      padding: 5rem 4rem 6rem;
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 5rem;
+      min-height: 90vh;
+      align-items: start;
+    }
+
+    /* ── LEFT INFO ── */
+    .contact-info { padding-top: 1rem; }
+
+    .contact-info h1 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(2.5rem, 4vw, 4rem);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      margin-bottom: 1.5rem;
+    }
+    .contact-info h1 span { color: var(--accent); }
+
+    .contact-info > p {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.9;
+      max-width: 400px;
+      margin-bottom: 3rem;
+    }
+
+    .contact-details { margin-bottom: 3rem; }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.2rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .contact-item-icon {
+      width: 44px; height: 44px;
+      background: rgba(200,255,0,0.06);
+      border: 1px solid rgba(200,255,0,0.15);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .contact-item-text strong {
+      display: block;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 0.2rem;
+    }
+
+    .contact-item-text span {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .availability {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(200,255,0,0.06);
+      border: 1px solid rgba(200,255,0,0.2);
+      border-radius: 2px;
+      padding: 0.6rem 1.2rem;
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: blink 1.5s infinite;
+    }
+
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+    /* ── FORM ── */
+    .contact-form-wrap {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 3rem;
+    }
+
+    .form-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .field {
+      margin-bottom: 1.4rem;
+    }
+
+    label {
+      display: block;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.73rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      padding: 0.85rem 1rem;
+      outline: none;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      appearance: none;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: rgba(200,255,0,0.5);
+      box-shadow: 0 0 0 3px rgba(200,255,0,0.06);
+    }
+
+    input::placeholder, textarea::placeholder { color: var(--muted); }
+
+    textarea { resize: vertical; min-height: 130px; }
+
+    select option { background: var(--bg); }
+
+    .submit-btn {
+      width: 100%;
+      background: var(--accent);
+      color: #0a0a0f;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 1rem;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    .submit-btn:hover { background: #fff; transform: translateY(-2px); }
+    .submit-btn:active { transform: translateY(0); }
+
+    /* ── SUCCESS MSG ── */
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+    }
+    .success-msg .check {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    .success-msg h3 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .success-msg p { color: var(--muted); font-size: 0.9rem; }
+
+    /* ── MAP STRIP ── */
+    .map-strip {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 4rem;
+      text-align: center;
+    }
+    .map-strip h3 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .map-strip p {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+    .map-strip p span { color: var(--accent); }
+
+    @media (max-width: 900px) {
+      .contact-section { grid-template-columns: 1fr; gap: 3rem; padding: 3rem 1.5rem 4rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .contact-form-wrap { padding: 1.8rem; }
+      .map-strip { padding: 3rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Naseem khan<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="contact.html" class="nav-cta">Contact</a></li>
+    </ul>
+    <button class="hamburger"><span></span><span></span><span></span></button>
+  </nav>
+
+  <div class="page-content">
+
+    <div class="contact-section">
+
+      <!-- LEFT -->
+      <div class="contact-info">
+        <div class="section-label animate">Get In Touch</div>
+        <h1 class="animate" data-delay="100">
+          Let's Build<br/><span>Something</span><br/>Great.
+        </h1>
+        <p class="animate" data-delay="200">
+          Have a project in mind? I'd love to hear about it. 
+          Fill out the form or reach out directly — I typically 
+          respond within 24 hours.
+        </p>
+
+        <div class="contact-details animate" data-delay="300">
+          <div class="contact-item">
+            <div class="contact-item-icon">📧</div>
+            <div class="contact-item-text">
+              <strong>Email</strong>
+              <span>gulnaseem947@gmail.com</span>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">📱</div>
+            <div class="contact-item-text">
+              <strong>WhatsApp</strong>
+              <span>+92 348 7874457</span>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">📍</div>
+            <div class="contact-item-text">
+              <strong>Location</strong>
+              <span>Karachi, Pakistan</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="availability animate" data-delay="400">
+          <div class="dot"></div>
+          Available for new projects
+        </div>
+      </div>
+
+      <!-- RIGHT: FORM -->
+      <div class="contact-form-wrap animate" data-delay="200">
+        <div class="form-title">Send a Message ✉️</div>
+
+        <div id="form-area">
+          <div class="form-row">
+            <div class="field">
+              <label>First Name</label>
+              <input type="text" id="fname" placeholder="" />
+            </div>
+            <div class="field">
+              <label>Last Name</label>
+              <input type="text" id="lname" placeholder="" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Email Address</label>
+            <input type="email" id="email" placeholder="" />
+          </div>
+
+          <div class="field">
+            <label>Service Needed</label>
+            <select id="service">
+              <option value="" disabled selected>Select a service...</option>
+              <option>Web Development</option>
+              <option>UI/UX Design</option>
+              <option>Mobile App</option>
+              <option>Backend / API</option>
+              <option>Consulting</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Budget Range</label>
+            <select id="budget">
+              <option value="" disabled selected>Select budget...</option>
+              <option>Under $500</option>
+              <option>$500 – $1,500</option>
+              <option>$1,500 – $5,000</option>
+              <option>$5,000+</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Your Message</label>
+            <textarea id="message" placeholder="Tell me about your project, goals, timeline..."></textarea>
+          </div>
+
+          <button class="submit-btn" onclick="submitForm()">
+            Send Message <span>→</span>
+          </button>
+        </div>
+
+        <!-- SUCCESS -->
+        <div class="success-msg" id="success">
+          <div class="check">🎉</div>
+          <h3>Message Sent!</h3>
+          <p>Thanks for reaching out. I'll get back to you within 24 hours.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- LOCATION STRIP -->
+    <div class="map-strip">
+      <h3>Based In</h3>
+      <p>Karachi, <span>Pakistan</span> 🇵🇰</p>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">Naseem khan<span>.</span></a>
+        <p>Building beautiful, functional digital products that people love to use.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="services.html">Web Development</a></li>
+          <li><a href="services.html">UI/UX Design</a></li>
+          <li><a href="services.html">Mobile Apps</a></li>
+          <li><a href="services.html">Consulting</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="contact.html">Naseemkhan@portfoliocom</a></li>
+          <li><a href="contact.html">Hire Me</a></li>
+          <li><a href="#">Resume / CV</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Naseem khan. All rights reserved.</span>
+      <div class="footer-socials">
+        <a href="https://github.com/gulnaseemkhan">GH</a>
+        <a href="https://www.linkedin.com/in/gul-naseem-khan" target="_blank"LinkedIn title="LinkedIn">LI</a>
+        <a href="https://x.com/gul_naseemkhan" title="Twitter">TW</a>
+        <a href="https://www.instagram.com/gul_naseem_020" title="Instagram">IN</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    function submitForm() {
+      const fname = document.getElementById('fname').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if (!fname || !email || !message) {
+        alert('Please fill in your name, email, and message.');
+        return;
+      }
+
+      document.getElementById('form-area').style.display = 'none';
+      document.getElementById('success').style.display = 'block';
+    }
+  </script>
+</body>
+</html>

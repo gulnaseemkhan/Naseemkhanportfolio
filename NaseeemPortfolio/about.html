@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio — About</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── ABOUT HERO ── */
+    .about-hero {
+      padding: 5rem 4rem 4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      min-height: 85vh;
+      position: relative;
+    }
+
+    .about-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 50%;
+      height: 100%;
+      background: radial-gradient(ellipse at top right, rgba(200,255,0,0.05) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .about-text .hero-num {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .about-big {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      margin-bottom: 2rem;
+    }
+    .about-big span { color: var(--accent); }
+
+    .about-text p {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.9;
+      margin-bottom: 1.5rem;
+      max-width: 480px;
+    }
+
+    .about-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2.5rem; }
+
+    /* ── PHOTO CARD ── */
+    .photo-card {
+      position: relative;
+    }
+
+    .photo-frame {
+      width: 100%;
+      aspect-ratio: 3/4;
+      max-width: 400px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .photo-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(145deg, var(--surface), var(--card));
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      font-size: 5rem;
+    }
+
+    .photo-placeholder p {
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .photo-badge {
+      position: absolute;
+      bottom: -1.5rem;
+      left: -1.5rem;
+      background: var(--accent);
+      color: #0a0a0f;
+      font-family: var(--font-display);
+      font-weight: 800;
+      padding: 1rem 1.5rem;
+      border-radius: 4px;
+      text-align: center;
+    }
+    .photo-badge .num {
+      font-size: 2rem;
+      line-height: 1;
+      display: block;
+    }
+    .photo-badge .label {
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .photo-deco {
+      position: absolute;
+      top: -1rem;
+      right: -1rem;
+      width: 80px; height: 80px;
+      border: 1px solid rgba(200,255,0,0.2);
+      border-radius: 4px;
+    }
+
+    /* ── SKILLS SECTION ── */
+    .skills-section {
+      padding: 5rem 4rem;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+    }
+
+    .skills-intro {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 5rem;
+      margin-bottom: 4rem;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .skill-bar-item {}
+    .skill-bar-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.7rem;
+    }
+    .skill-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+    }
+    .skill-pct {
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      color: var(--accent);
+    }
+    .bar {
+      height: 3px;
+      background: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 2px;
+      width: 0;
+      transition: width 1.2s ease;
+    }
+    .bar-fill.loaded { width: var(--w); }
+
+    /* ── TIMELINE ── */
+    .timeline-section { padding: 5rem 4rem; }
+
+    .timeline {
+      position: relative;
+      max-width: 700px;
+      margin-top: 3rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+    }
+
+    .timeline-item {
+      padding-left: 2.5rem;
+      padding-bottom: 3rem;
+      position: relative;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -4px;
+      top: 8px;
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px var(--accent);
+    }
+
+    .timeline-year {
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+
+    .timeline-item h3 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .timeline-item .org {
+      font-size: 0.85rem;
+      color: var(--accent2);
+      margin-bottom: 0.6rem;
+    }
+
+    .timeline-item p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    @media (max-width: 900px) {
+      .about-hero { grid-template-columns: 1fr; gap: 3rem; padding: 3rem 1.5rem 2rem; min-height: auto; }
+      .photo-frame { max-width: 280px; }
+      .skills-section { padding: 4rem 1.5rem; }
+      .skills-intro { grid-template-columns: 1fr; gap: 2rem; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .timeline-section { padding: 4rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a href="index.html" class="nav-logo">Naseem khan<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="contact.html" class="nav-cta">Contact</a></li>
+    </ul>
+    <button class="hamburger"><span></span><span></span><span></span></button>
+  </nav>
+
+  <div class="page-content">
+
+    <!-- ABOUT HERO -->
+    <div class="about-hero">
+      <div class="about-text">
+        <div class="hero-num animate">01 — About Me</div>
+        <h1 class="about-big animate" data-delay="100">
+          Hey, I'm <span>Naseem khan</span>.<br/>Passionate Developer.
+        </h1>
+        <p class="animate" data-delay="200">
+          I am a passionate Frontend Developer with a strong foundation 
+          in building responsive and user-friendly web interfaces. I have hands-on experience With
+           HTML, CSS, JavaScript, and modern frontend practices, allowing me to create visually appealing and interactive designs.
+        </p>
+        <p class="animate" data-delay="300">
+         Currently, I am expanding my skills in Backend Development and continuously working on improving my knowledge of server-side technologies, 
+         databases, and API integration. I am highly motivated to grow as a Full Stack Developer and enjoy learning new technologies to build complete and efficient web applications.
+        </p>
+        <div class="about-actions animate" data-delay="400">
+          <a href="contact.html" class="btn btn-primary">Hire Me →</a>
+          <a href="#" class="btn btn-outline">Download CV</a>
+        </div>
+      </div>
+
+      <div class="photo-card animate" data-delay="200">
+        <div class="photo-frame">
+          <div class="photo-placeholder">
+         <img src="naseempi.png" alt="My photo">
+            👨‍💻
+            <p>your photo is here</p>
+          </div>
+          <div class="photo-badge">
+            <span class="num">1+</span>
+            <span class="label">Years Exp.</span>
+          </div>
+          <div class="photo-deco"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SKILLS -->
+    <div class="skills-section">
+      <div class="skills-intro">
+        <div>
+          <div class="section-label animate">My Skills</div>
+          <h2 class="section-title animate" data-delay="100">Tech I Work With</h2>
+        </div>
+        <div class="skills-grid">
+          <div class="skill-bar-item animate" data-delay="100">
+            <div class="skill-bar-header">
+              <span class="skill-name">HTML / CSS</span>
+              <span class="skill-pct">95%</span>
+            </div>
+            <div class="bar"><div class="bar-fill" style="--w:95%"></div></div>
+          </div>
+          <div class="skill-bar-item animate" data-delay="150">
+            <div class="skill-bar-header">
+              <span class="skill-name">JavaScript</span>
+              <span class="skill-pct">90%</span>
+            </div>
+            <div class="bar"><div class="bar-fill" style="--w:90%"></div></div>
+          </div>
+          <div class="skill-bar-item animate" data-delay="200">
+            <div class="skill-bar-header">
+              <span class="skill-name">React.js</span>
+              <span class="skill-pct">85%</span>
+            </div>
+            <div class="bar"><div class="bar-fill" style="--w:85%"></div></div>
+          </div>
+          <div class="skill-bar-item animate" data-delay="250">
+            <div class="skill-bar-header">
+              <span class="skill-name">Node.js</span>
+              <span class="skill-pct">80%</span>
+            </div>
+            <div class="bar"><div class="bar-fill" style="--w:80%"></div></div>
+          </div>
+          <div class="skill-bar-item animate" data-delay="300">
+            <div class="skill-bar-header">
+              <span class="skill-name">UI/UX Design</span>
+              <span class="skill-pct">88%</span>
+            </div>
+            <div class="bar"><div class="bar-fill" style="--w:88%"></div></div>
+          </div>
+          <div class="skill-bar-item animate" data-delay="350">
+            <div class="skill-bar-header">
+              <span class="skill-name">Python</span>
+              <span class="skill-pct">20%</span>
+            </div>
+            <div class="bar"><div class="bar-fill" style="--w:20%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIMELINE -->
+    <section class="timeline-section">
+      <div class="section-label animate">Journey</div>
+      <h2 class="section-title animate" data-delay="100">Experience &amp; Education</h2>
+
+      <div class="timeline">
+        <div class="timeline-item animate" data-delay="150">
+          <div class="timeline-year">2020 — Past</div>
+          <h3>Frontend Developer</h3>
+          <div class="org">TechCorp Solutions</div>
+          <p>Leading the development of enterprise-grade React applications, mentoring junior developers, and architecting scalable frontend systems.</p>
+        </div>
+        <div class="timeline-item animate" data-delay="250">
+          <div class="timeline-year">2020 — 2022</div>
+          <h3> Developer</h3>
+          <div class="org">Creative Digital Agency</div>
+          <p>Built 20+ client websites and web apps using React, Node.js, and MongoDB. Led design system implementation across all projects.</p>
+        </div>
+        <div class="timeline-item animate" data-delay="350">
+          <div class="timeline-year">2022 — 2023</div>
+          <h3>Junior Web Developer</h3>
+          <div class="org">StartupXYZ</div>
+          <p>Developed features for SaaS platform, fixed bugs, and improved performance resulting in 40% faster load times.</p>
+        </div>
+        <div class="timeline-item animate" data-delay="450">
+          <div class="timeline-year">2023 — 2027 - present</div>
+          <h3>BS Cyber Security(In progress)</h3>
+          <div class="org">Sindh Madressatul Islam University</div>
+          <p>Graduated with distinction. Specialized in software engineering and human-computer interaction.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">Naseem khan<span>.</span></a>
+        <p>Building beautiful, functional digital products that people love to use.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="services.html">Web Development</a></li>
+          <li><a href="services.html">UI/UX Design</a></li>
+          <li><a href="services.html">Mobile Apps</a></li>
+          <li><a href="services.html">Consulting</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="contact.html">Naseemkhan@portfolio.com</a></li>
+          <li><a href="contact.html">Hire Me</a></li>
+          <li><a href="#">Resume / CV</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Naseem khan. All rights reserved.</span>
+      <div class="footer-socials">
+        <a href="https://github.com/gulnaseemkhan">GH</a>
+        <a href="https://www.linkedin.com/in/gul-naseem-khan" target="_blank"LinkedIn title="LinkedIn">LI</a>
+        <a href="https://x.com/gul_naseemkhan" title="Twitter">TW</a>
+        <a href="https://www.instagram.com/gul_naseem_020" title="Instagram">IN</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Animate skill bars on scroll
+    const bars = document.querySelectorAll('.bar-fill');
+    const barObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('loaded'); barObserver.unobserve(e.target); }
+      });
+    }, { threshold: 0.3 });
+    bars.forEach(b => barObserver.observe(b));
+  </script>
+</body>
+</html>

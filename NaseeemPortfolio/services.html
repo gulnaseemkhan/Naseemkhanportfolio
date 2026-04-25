@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio — Services</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── PAGE HERO ── */
+    .page-hero {
+      padding: 5rem 4rem 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 300px;
+      background: radial-gradient(ellipse, rgba(200,255,0,0.07) 0%, transparent 70%);
+    }
+    .page-hero .section-label { justify-content: center; }
+    .page-hero .section-title { max-width: 600px; margin: 0 auto 1.5rem; }
+    .page-hero p {
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto;
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    /* ── SERVICES GRID ── */
+    .services-section { padding: 2rem 4rem 6rem; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .services-grid.two-col {
+      grid-template-columns: repeat(2, 1fr);
+      max-width: 840px;
+      margin: 0 auto;
+    }
+
+    .service-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      cursor: default;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    .service-card:hover {
+      border-color: rgba(200,255,0,0.2);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .service-card:hover::before { transform: scaleX(1); }
+
+    .service-icon {
+      width: 56px; height: 56px;
+      background: rgba(200,255,0,0.06);
+      border: 1px solid rgba(200,255,0,0.15);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      margin-bottom: 1.5rem;
+      transition: all 0.3s;
+    }
+    .service-card:hover .service-icon {
+      background: rgba(200,255,0,0.12);
+      transform: scale(1.05);
+    }
+
+    .service-card h3 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.15rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .service-card p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .service-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .tag {
+      font-size: 0.68rem;
+      font-family: var(--font-display);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.7rem;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      color: var(--muted);
+    }
+
+    /* ── PRICING ── */
+    .pricing-section {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 6rem 4rem;
+    }
+
+    .pricing-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    .pricing-header .section-label { justify-content: center; }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2.5rem;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .pricing-card.featured {
+      background: linear-gradient(145deg, #16161f, #1c1c2a);
+      border-color: rgba(200,255,0,0.4);
+      transform: scale(1.03);
+      box-shadow: 0 0 40px rgba(200,255,0,0.08);
+    }
+
+    .pricing-badge {
+      position: absolute;
+      top: -12px; left: 50%; transform: translateX(-50%);
+      background: var(--accent);
+      color: #0a0a0f;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.25rem 1rem;
+      border-radius: 2px;
+    }
+
+    .pricing-plan {
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .pricing-price {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 2.8rem;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .pricing-price span { font-size: 1.2rem; font-weight: 400; color: var(--muted); }
+
+    .pricing-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pricing-features { list-style: none; margin-bottom: 2rem; }
+    .pricing-features li {
+      font-size: 0.88rem;
+      color: var(--muted);
+      padding: 0.5rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+    .pricing-features li::before {
+      content: '✓';
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+    .pricing-features li.no::before {
+      content: '✗';
+      color: var(--muted);
+    }
+    .pricing-features li.no { opacity: 0.4; }
+
+    .pricing-card .btn { width: 100%; justify-content: center; }
+
+    /* ── PROCESS ── */
+    .process-section { padding: 6rem 4rem; }
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .process-item { position: relative; }
+    .process-item::after {
+      content: '→';
+      position: absolute;
+      right: -1.2rem;
+      top: 1.5rem;
+      color: var(--muted);
+      font-size: 1.2rem;
+    }
+    .process-item:last-child::after { display: none; }
+
+    .process-num {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 3rem;
+      letter-spacing: -0.05em;
+      color: rgba(200,255,0,0.15);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+    .process-item h3 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .process-item p { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+
+    @media (max-width: 900px) {
+      .page-hero { padding: 4rem 1.5rem 3rem; }
+      .services-section { padding: 2rem 1.5rem 4rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      .services-grid.two-col { grid-template-columns: 1fr; }
+      .pricing-section { padding: 4rem 1.5rem; }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 400px; }
+      .pricing-card.featured { transform: none; }
+      .process-section { padding: 4rem 1.5rem; }
+      .process-grid { grid-template-columns: repeat(2, 1fr); }
+      .process-item::after { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Naseem khan<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="contact.html" class="nav-cta">Contact</a></li>
+    </ul>
+    <button class="hamburger"><span></span><span></span><span></span></button>
+  </nav>
+
+  <div class="page-content">
+
+    <!-- PAGE HERO -->
+    <div class="page-hero">
+      <div class="section-label animate">What I Do</div>
+      <h1 class="section-title animate" data-delay="100">Services I Offer</h1>
+      <p class="animate" data-delay="200">From idea to launch — I provide end-to-end digital solutions tailored to your goals and budget.</p>
+    </div>
+
+    <!-- SERVICES CARDS -->
+    <section class="services-section">
+      <div class="services-grid">
+        <div class="service-card animate" data-delay="100">
+          <div class="service-icon">🌐</div>
+          <h3>Web Development</h3>
+          <p>Custom, high-performance websites and web applications built with modern technologies. Optimized for speed, SEO, and scalability.</p>
+          <div class="service-tags">
+            <span class="tag">React</span><span class="tag">Next.js</span><span class="tag">Node.js</span>
+          </div>
+        </div>
+        <div class="service-card animate" data-delay="200">
+          <div class="service-icon">🎨</div>
+          <h3>UI/UX Design</h3>
+          <p>Beautiful, intuitive interfaces designed to maximize user engagement and conversions. Research-driven design that looks and works great.</p>
+          <div class="service-tags">
+            <span class="tag">Figma</span><span class="tag">Prototyping</span><span class="tag">Research</span>
+          </div>
+        </div>
+        <div class="service-card animate" data-delay="300">
+          <div class="service-icon">📱</div>
+          <h3>Mobile Apps</h3>
+          <p>Cross-platform mobile applications for iOS and Android. Native performance with a single codebase using React Native.</p>
+          <div class="service-tags">
+            <span class="tag">React Native</span><span class="tag">iOS</span><span class="tag">Android</span>
+          </div>
+        </div>
+      </div>
+      <div class="services-grid two-col">
+        <div class="service-card animate" data-delay="200">
+          <div class="service-icon">🗄️</div>
+          <h3>Backend & API</h3>
+          <p>Robust backend systems, REST APIs, and database architecture that power your applications reliably at any scale.</p>
+          <div class="service-tags">
+            <span class="tag">Node.js</span><span class="tag">MongoDB</span><span class="tag">PostgreSQL</span>
+          </div>
+        </div>
+        <div class="service-card animate" data-delay="300">
+          <div class="service-icon">🚀</div>
+          <h3>Consulting</h3>
+          <p>Technical consulting and code reviews to help your team build better software, improve architecture, and solve complex challenges.</p>
+          <div class="service-tags">
+            <span class="tag">Architecture</span><span class="tag">Review</span><span class="tag">Mentoring</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="process-section">
+      <div class="section-label animate">How I Work</div>
+      <h2 class="section-title animate" data-delay="100">My Process</h2>
+      <div class="process-grid">
+        <div class="process-item animate" data-delay="100">
+          <div class="process-num">01</div>
+          <h3>Discovery</h3>
+          <p>Understanding your goals, audience, and requirements through in-depth conversations.</p>
+        </div>
+        <div class="process-item animate" data-delay="200">
+          <div class="process-num">02</div>
+          <h3>Design</h3>
+          <p>Creating wireframes and high-fidelity mockups for your review and approval.</p>
+        </div>
+        <div class="process-item animate" data-delay="300">
+          <div class="process-num">03</div>
+          <h3>Develop</h3>
+          <p>Building your product with clean, maintainable code and regular progress updates.</p>
+        </div>
+        <div class="process-item animate" data-delay="400">
+          <div class="process-num">04</div>
+          <h3>Launch</h3>
+          <p>Testing, deployment, and ongoing support to ensure everything runs perfectly.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="pricing-section">
+      <div class="pricing-header">
+        <div class="section-label animate">Pricing</div>
+        <h2 class="section-title animate" data-delay="100">Simple, Transparent Plans</h2>
+      </div>
+      <div class="pricing-grid">
+        <div class="pricing-card animate" data-delay="100">
+          <div class="pricing-plan">Starter</div>
+          <div class="pricing-price">$499<span>/project</span></div>
+          <div class="pricing-desc">Perfect for small projects & landing pages.</div>
+          <ul class="pricing-features">
+            <li>Up to 5 pages</li>
+            <li>Responsive design</li>
+            <li>Basic SEO setup</li>
+            <li>1 month support</li>
+            <li class="no">Custom backend</li>
+            <li class="no">Mobile app</li>
+          </ul>
+          <a href="contact.html" class="btn btn-outline">Get Started →</a>
+        </div>
+        <div class="pricing-card featured animate" data-delay="200">
+          <div class="pricing-badge">Most Popular</div>
+          <div class="pricing-plan">Professional</div>
+          <div class="pricing-price">$1,499<span>/project</span></div>
+          <div class="pricing-desc">Ideal for business websites and web apps.</div>
+          <ul class="pricing-features">
+            <li>Unlimited pages</li>
+            <li>Custom design system</li>
+            <li>Full-stack development</li>
+            <li>3 months support</li>
+            <li>SEO optimization</li>
+            <li class="no">Mobile app</li>
+          </ul>
+          <a href="contact.html" class="btn btn-primary">Get Started →</a>
+        </div>
+        <div class="pricing-card animate" data-delay="300">
+          <div class="pricing-plan">Enterprise</div>
+          <div class="pricing-price">Custom</div>
+          <div class="pricing-desc">For large-scale applications and ongoing work.</div>
+          <ul class="pricing-features">
+            <li>Everything in Pro</li>
+            <li>Mobile app included</li>
+            <li>Dedicated support</li>
+            <li>Monthly retainer</li>
+            <li>Team collaboration</li>
+            <li>NDA available</li>
+          </ul>
+          <a href="contact.html" class="btn btn-outline">Let's Talk →</a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">Naseem khan<span>.</span></a>
+        <p>Building beautiful, functional digital products that people love to use.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="services.html">Web Development</a></li>
+          <li><a href="services.html">UI/UX Design</a></li>
+          <li><a href="services.html">Mobile Apps</a></li>
+          <li><a href="services.html">Consulting</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="contact.html">Naseemkhan@portfolio.com</a></li>
+          <li><a href="contact.html">Hire Me</a></li>
+          <li><a href="#">Resume / CV</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Naseem khan. All rights reserved.</span>
+      <div class="footer-socials">
+        <a href="https://github.com/gulnaseemkhan">GH</a>
+        <a href="https://www.linkedin.com/in/gul-naseem-khan" target="_blank"LinkedIn title="LinkedIn">LI</a>
+        <a href="https://x.com/gul_naseemkhan" title="Twitter">TW</a>
+        <a href="https://www.instagram.com/gul_naseem_020" title="Instagram">IN</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
